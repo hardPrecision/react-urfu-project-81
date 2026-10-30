@@ -9,20 +9,44 @@
 
 ## Стек
 
-- JavaScript
+- TypeScript
 
 ## Установка
 
-<!-- Опишите установку: клонирование, зависимости, переменные окружения -->
+Для работы нужны Node.js и npm.
 
 ```bash
 git clone https://github.com/hardPrecision/react-urfu-project-81.git
 cd react-urfu-project-81
+npm install
 ```
 
 ## Использование
 
-<!-- Добавьте примеры запуска и запись asciinema — именно это смотрит работодатель -->
+Сборка TypeScript в JavaScript:
+
+```bash
+npm run build
+```
+
+Проверка типов без сборки:
+
+```bash
+npm run typecheck
+```
+
+Исходный код находится в `src`, результат сборки — в `dist`.
+Пакет экспортирует класс `HexletCode` по умолчанию. Генерация форм будет добавлена на следующих этапах.
+
+После сборки библиотеку можно подключить в другом локальном проекте:
+
+```bash
+npm install ~/react-urfu-project-81
+```
+
+```javascript
+import HexletCode from '@hexlet/code';
+```
 
 ---
 
