@@ -6,7 +6,10 @@
   "scripts": {
     "build": "tsc",
     "typecheck": "tsc --noEmit",
-    "prepare": "tsc"
+    "prepare": "tsc",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test-coverage": "vitest run --coverage"
   },
   "repository": {
     "type": "git",
@@ -23,6 +26,11 @@
     "dist"
   ],
   "devDependencies": {
-    "typescript": "^7.0.2"
+    "@eslint/js": "^10.0.1",
+    "@vitest/coverage-v8": "^5.0.5",
+    "eslint": "^10.14.0",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.72.1",
+    "vitest": "^5.0.5"
   }
 }
