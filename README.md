@@ -39,7 +39,7 @@ npm run typecheck
 ```
 
 Исходный код находится в `src`, результат сборки — в `dist`.
-Пакет экспортирует класс `HexletCode` по умолчанию. Генерация форм будет добавлена на следующих этапах.
+Пакет экспортирует класс `HexletCode` по умолчанию.
 
 После сборки библиотеку можно подключить в другом локальном проекте:
 
@@ -49,6 +49,15 @@ npm install ~/react-urfu-project-81
 
 ```javascript
 import HexletCode from '@hexlet/code';
+
+const template = { name: 'rob', job: 'hexlet', gender: 'm' };
+const form = HexletCode.formFor(template, {}, (f) => {
+  f.input('name');
+  f.input('job', { as: 'textarea' });
+});
+
+console.log(form);
+// <form action="#" method="post"><input name="name" type="text" value="rob"><textarea cols="20" rows="40" name="job">hexlet</textarea></form>
 ```
 
 ---
