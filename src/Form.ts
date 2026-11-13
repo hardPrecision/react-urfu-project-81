@@ -1,7 +1,12 @@
 import Tag from './Tag.js';
 
 type AttributeValue = string | number;
-type InputOptions = Record<string, AttributeValue> & { as?: string };
+type InputOptions = {
+  [key: string]: AttributeValue | Record<string, AttributeValue> | undefined;
+  as?: string;
+  label?: string;
+  labelHtml?: Record<string, AttributeValue>;
+};
 
 export default class Form {
   private fields: string[] = [];
@@ -13,19 +18,25 @@ export default class Form {
       throw new Error(`Field '${name}' does not exist in the template.`);
     }
 
-    const label = new Tag(
+    const {
+      as,
+      label = name.charAt(0).toUpperCase() + name.slice(1),
+      labelHtml = {},
+      ...attributes
+    } = options;
+    const fieldAttributes = attributes as Record<string, AttributeValue>;
+    const labelTag = new Tag(
       'label',
-      { for: name },
-      name.charAt(0).toUpperCase() + name.slice(1),
+      { for: name, ...labelHtml },
+      label,
     );
-    this.fields.push(label.toString());
+    this.fields.push(labelTag.toString());
     const value = this.template[name];
-    const { as, ...attributes } = options;
 
     if (as === 'textarea') {
       const tag = new Tag(
         'textarea',
-        { cols: 20, rows: 40, name, ...attributes },
+        { cols: 20, rows: 40, name, ...fieldAttributes },
         value,
       );
       this.fields.push(tag.toString());
@@ -36,7 +47,7 @@ export default class Form {
       name,
       type: 'text',
       value,
-      ...attributes,
+      ...fieldAttributes,
     });
     this.fields.push(tag.toString());
   }

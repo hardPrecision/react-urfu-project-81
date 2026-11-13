@@ -18,8 +18,8 @@ export default class HexletCode {
     callback(form);
 
     return new Tag('form', {
-      action: options.url ?? '#',
       method: options.method ?? 'post',
+      action: options.url ?? '#',
     }, form.toString()).toString();
   }
 }

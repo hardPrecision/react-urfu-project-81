@@ -7,13 +7,13 @@ describe('formFor', () => {
   test('создаёт пустую форму', () => {
     const form = HexletCode.formFor(template, {}, () => {});
 
-    expect(form).toBe('<form action="#" method="post"></form>');
+    expect(form).toBe('<form method="post" action="#"></form>');
   });
 
   test('создаёт форму с указанным адресом', () => {
     const form = HexletCode.formFor(template, { url: '/users' }, () => {});
 
-    expect(form).toBe('<form action="/users" method="post"></form>');
+    expect(form).toBe('<form method="post" action="/users"></form>');
   });
 
   test('создаёт поля формы', () => {
@@ -23,7 +23,7 @@ describe('formFor', () => {
     });
 
     expect(form).toBe(
-      '<form action="#" method="post"><label for="name">Name</label><input name="name" type="text" value="rob"><label for="job">Job</label><textarea cols="20" rows="40" name="job">hexlet</textarea></form>',
+      '<form method="post" action="#"><label for="name">Name</label><input name="name" type="text" value="rob"><label for="job">Job</label><textarea cols="20" rows="40" name="job">hexlet</textarea></form>',
     );
   });
 
@@ -34,7 +34,17 @@ describe('formFor', () => {
     });
 
     expect(form).toBe(
-      '<form action="#" method="post"><label for="name">Name</label><input name="name" type="text" value="rob" class="user-input"><label for="job">Job</label><input name="job" type="text" value="hexlet"></form>',
+      '<form method="post" action="#"><label for="name">Name</label><input name="name" type="text" value="rob" class="user-input"><label for="job">Job</label><input name="job" type="text" value="hexlet"></form>',
+    );
+  });
+
+  test('настраивает лэйбл поля', () => {
+    const form = HexletCode.formFor(template, {}, (f) => {
+      f.input('name', { label: 'User', labelHtml: { class: 'form-label', id: 'name-label' } });
+    });
+
+    expect(form).toBe(
+      '<form method="post" action="#"><label for="name" class="form-label" id="name-label">User</label><input name="name" type="text" value="rob"></form>',
     );
   });
 
@@ -47,7 +57,7 @@ describe('formFor', () => {
     });
 
     expect(form).toBe(
-      '<form action="#" method="post"><label for="job">Job</label><textarea cols="50" rows="50" name="job">hexlet</textarea></form>',
+      '<form method="post" action="#"><label for="job">Job</label><textarea cols="50" rows="50" name="job">hexlet</textarea></form>',
     );
   });
 
@@ -58,7 +68,7 @@ describe('formFor', () => {
     });
 
     expect(form).toBe(
-      '<form action="#" method="post"><label for="name">Name</label><input name="name" type="text" value="rob"><input type="submit" value="Save"></form>',
+      '<form method="post" action="#"><label for="name">Name</label><input name="name" type="text" value="rob"><input type="submit" value="Save"></form>',
     );
   });
 
@@ -69,7 +79,7 @@ describe('formFor', () => {
     });
 
     expect(form).toBe(
-      '<form action="#" method="post"><label for="job">Job</label><textarea cols="20" rows="40" name="job">hexlet</textarea><input type="submit" value="Wow"></form>',
+      '<form method="post" action="#"><label for="job">Job</label><textarea cols="20" rows="40" name="job">hexlet</textarea><input type="submit" value="Wow"></form>',
     );
   });
 
