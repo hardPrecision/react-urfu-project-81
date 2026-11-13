@@ -13,6 +13,12 @@ export default class Form {
       throw new Error(`Field '${name}' does not exist in the template.`);
     }
 
+    const label = new Tag(
+      'label',
+      { for: name },
+      name.charAt(0).toUpperCase() + name.slice(1),
+    );
+    this.fields.push(label.toString());
     const value = this.template[name];
     const { as, ...attributes } = options;
 
@@ -31,6 +37,14 @@ export default class Form {
       type: 'text',
       value,
       ...attributes,
+    });
+    this.fields.push(tag.toString());
+  }
+
+  submit(value = 'Save'): void {
+    const tag = new Tag('input', {
+      type: 'submit',
+      value,
     });
     this.fields.push(tag.toString());
   }
